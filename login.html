@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Admin - Kopi Karsa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(214, 157, 94, 0.22), transparent 28%),
+        radial-gradient(circle at bottom, rgba(80, 47, 27, 0.35), transparent 32%),
+        linear-gradient(180deg, #170f0d 0%, #201711 32%, #120d0b 100%);
+    }
+    .glass-card {
+      background: rgba(255, 251, 247, 0.96);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(91, 63, 46, 0.08);
+      box-shadow: 0 24px 80px rgba(11, 8, 6, 0.35);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 text-stone-800">
+  <div class="w-full max-w-5xl overflow-hidden rounded-[32px] border border-amber-500/20 bg-[#1d120d] shadow-[0_32px_100px_rgba(0,0,0,0.42)]">
+    <div class="grid lg:grid-cols-2">
+      <div class="hidden lg:flex flex-col justify-between bg-gradient-to-br from-brand-950 via-brand-900 to-[#422a1a] p-10 text-white">
+        <div>
+          <div class="flex items-center gap-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-brand-700 to-brand-500 font-serif text-2xl font-bold text-amber-100">K</div>
+            <div>
+              <p class="font-serif text-3xl font-bold">Kopi Karsa</p>
+              <p class="text-sm text-stone-300">Admin Control Panel</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs uppercase tracking-[0.2em] text-amber-200">
+            <span class="h-2 w-2 rounded-full bg-emerald-400"></span> Sistem aktif
+          </div>
+          <h1 class="font-serif text-4xl font-bold leading-tight">Kelola pesanan dan stok dengan lebih mudah.</h1>
+          <p class="max-w-md text-sm leading-relaxed text-stone-300">
+            Akses dashboard admin untuk melihat penjualan, mengelola menu, dan memantau status pesanan secara real-time.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3 text-sm text-stone-300">
+          <i class="fa-solid fa-shield-heart text-amber-300"></i>
+          <span>Area khusus admin Kopi Karsa</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center bg-gradient-to-br from-[#201711] via-[#1a120d] to-[#120d0b] p-6 sm:p-10">
+        <div class="glass-card w-full max-w-md rounded-[28px] p-6 sm:p-8">
+          <div class="mb-8 text-center">
+            <p class="text-xs font-bold uppercase tracking-[0.22em] text-brand-700">Masuk admin</p>
+            <h2 class="mt-2 font-serif text-3xl font-bold text-stone-900">Selamat datang</h2>
+          </div>
+
+          <form id="loginForm" class="space-y-5">
+            <div>
+              <label for="username" class="mb-2 block text-sm font-semibold text-stone-700">Username</label>
+              <div class="flex items-center gap-3 rounded-2xl border border-stone-200 bg-stone-50 px-3 py-3 focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-200">
+                <i class="fa-solid fa-user text-stone-400"></i>
+                <input id="username" type="text" placeholder="Masukkan username" class="w-full bg-transparent text-sm text-stone-800 placeholder:text-stone-400 focus:outline-none" required />
+              </div>
+            </div>
+
+            <div>
+              <label for="password" class="mb-2 block text-sm font-semibold text-stone-700">Password</label>
+              <div class="flex items-center gap-3 rounded-2xl border border-stone-200 bg-stone-50 px-3 py-3 focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-200">
+                <i class="fa-solid fa-lock text-stone-400"></i>
+                <input id="password" type="password" placeholder="Masukkan password" class="w-full bg-transparent text-sm text-stone-800 placeholder:text-stone-400 focus:outline-none" required />
+                <button type="button" id="togglePassword" class="inline-flex items-center gap-1 rounded-xl border border-stone-300 bg-stone-100 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-stone-700 shadow-sm transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800" aria-label="Tampilkan password">
+                  <i id="togglePasswordIcon" class="fa-solid fa-eye"></i>
+                  <span id="togglePasswordText">Lihat</span>
+                </button>
+              </div>
+            </div>
+
+            <label class="mb-1 flex items-center gap-2 text-sm text-stone-600">
+              <input id="rememberMe" type="checkbox" class="h-4 w-4 rounded border-stone-300 text-brand-700 focus:ring-brand-500" />
+              Ingat saya
+            </label>
+
+            <div id="loginError" class="hidden rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"></div>
+
+            <button type="submit" class="mt-2 flex w-full items-center justify-center gap-2 rounded-2xl border border-brand-700 bg-gradient-to-r from-brand-800 to-brand-700 px-5 py-4 text-base font-bold text-white shadow-xl shadow-brand-900/20 transition duration-200 hover:-translate-y-0.5 hover:shadow-brand-900/30 focus:outline-none focus:ring-4 focus:ring-brand-200">
+              <i class="fa-solid fa-right-to-bracket"></i>
+              Masuk ke Dashboard
+            </button>
+          </form>
+
+          <div class="mt-6 text-center">
+            <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-brand-700 transition hover:text-brand-800">
+              <i class="fa-solid fa-arrow-left"></i>
+              Kembali ke website
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_ACCOUNT = {
+      username: 'admin',
+      password: 'admin123'
+    };
+
+    const passwordInput = document.getElementById('password');
+    const togglePasswordButton = document.getElementById('togglePassword');
+    const togglePasswordIcon = document.getElementById('togglePasswordIcon');
+    const togglePasswordText = document.getElementById('togglePasswordText');
+    const rememberMeCheckbox = document.getElementById('rememberMe');
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+
+    const existingSession = localStorage.getItem('kopi-karsa-admin');
+    if (existingSession) {
+      try {
+        const parsed = JSON.parse(existingSession);
+        if (parsed && parsed.loggedIn) {
+          window.location.href = 'dashboard.html';
+        }
+      } catch {
+        localStorage.removeItem('kopi-karsa-admin');
+      }
+    }
+
+    togglePasswordButton.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+
+      togglePasswordIcon.className = isPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
+      togglePasswordText.textContent = isPassword ? 'Sembunyikan' : 'Lihat';
+      togglePasswordButton.setAttribute('aria-label', isPassword ? 'Sembunyikan password' : 'Tampilkan password');
+    });
+
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = passwordInput.value.trim();
+
+      if (username === ADMIN_ACCOUNT.username && password === ADMIN_ACCOUNT.password) {
+        const session = {
+          loggedIn: true,
+          username,
+          loginAt: new Date().toISOString(),
+          remember: rememberMeCheckbox.checked
+        };
+
+        localStorage.setItem('kopi-karsa-admin', JSON.stringify(session));
+        window.location.href = 'dashboard.html';
+        return;
+      }
+
+      loginError.textContent = 'Username atau password salah. Silakan coba lagi.';
+      loginError.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>

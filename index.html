@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kopi Karsa adalah kedai kopi artisan dengan menu espresso, manual brew, pastry, dan promo menarik untuk dine-in dan takeaway.">
+  <meta name="theme-color" content="#2d1910">
+  <meta property="og:title" content="Kopi Karsa - Specialty Coffee & Artisan Brews">
+  <meta property="og:description" content="Nikmati kopi artisan pilihan, promo spesial, dan layanan pesan yang praktis di Kopi Karsa.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80">
+  <title>Kopi Karsa - Specialty Coffee & Artisan Brews</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased min-h-screen flex flex-col custom-scrollbar">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-brand-800 focus:px-4 focus:py-2 focus:text-white">Lewati ke konten utama</a>
+  <div id="toast-container" aria-live="polite" aria-atomic="true" class="fixed right-4 top-4 z-[100] flex w-[min(92vw,22rem)] flex-col gap-2"></div>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-40 glass-effect border-b border-stone-200/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <div class="flex items-center gap-3 cursor-pointer" data-action="scroll-top">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-800 to-brand-600 flex items-center justify-center shadow-md text-amber-100 font-serif font-bold text-xl">
+            K
+          </div>
+          <div>
+            <h1 class="font-serif font-bold text-2xl tracking-tight text-brand-950 flex items-center gap-1.5">
+              Kopi Karsa <span class="text-xs font-sans font-semibold px-2 py-0.5 bg-brand-100 text-brand-800 rounded-full">Artisan</span>
+            </h1>
+            <p class="text-xs text-stone-500 font-medium">Seduhan Jiwa & Cerita</p>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav id="site-navigation" class="hidden absolute top-full left-0 right-0 z-50 flex-col gap-0 bg-white border-b border-stone-200 px-4 py-2 shadow-lg text-sm font-medium text-stone-600 md:static md:z-auto md:flex md:flex-row md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0 md:shadow-none">
+          <a href="#home" class="nav-item border-b border-stone-100 py-3 hover:text-brand-600 transition md:border-0 md:py-0">Home</a>
+          <a href="#menu-section" class="nav-item border-b border-stone-100 py-3 hover:text-brand-600 transition md:border-0 md:py-0">Menu</a>
+          <a href="#about-section" class="nav-item border-b border-stone-100 py-3 hover:text-brand-600 transition md:border-0 md:py-0">Tentang</a>
+          <a href="#quiz-section" class="nav-item flex items-center gap-1 border-b border-stone-100 py-3 hover:text-brand-600 transition md:border-0 md:py-0">
+            <i class="fa-solid fa-wand-magic-sparkles text-brand-500"></i> Finder
+          </a>
+          <a href="#promo-section" class="nav-item border-b border-stone-100 py-3 hover:text-brand-600 transition md:border-0 md:py-0">Promo</a>
+          <a href="#tracker-section" class="nav-item py-3 hover:text-brand-600 transition md:py-0">Pesanan</a>
+        </nav>
+
+        <!-- Right Action Buttons -->
+        <div class="flex items-center gap-3">
+          <button id="mobile-nav-toggle" type="button" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="site-navigation" data-action="toggle-mobile-nav" class="md:hidden p-2.5 rounded-xl border border-stone-200 text-stone-700 hover:bg-stone-100 transition">
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+          </button>
+          <a href="login.html" data-admin-link class="hidden sm:inline-flex items-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-3 py-2 text-xs font-semibold text-brand-800 transition hover:bg-brand-100">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Login Admin
+          </a>
+          <button data-action="toggle-cart" class="relative p-2.5 rounded-xl bg-brand-50 hover:bg-brand-100 border border-brand-200/60 text-brand-800 transition duration-200 flex items-center gap-2">
+            <i class="fa-solid fa-basket-shopping text-lg"></i>
+            <span class="hidden sm:inline text-xs font-bold uppercase tracking-wider">Keranjang</span>
+            <span id="cart-count-badge" class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-amber-600 text-white rounded-full text-[11px] font-bold flex items-center justify-center shadow-sm">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="flex-grow">
+    <!-- HERO SECTION -->
+    <section id="home" class="relative bg-gradient-to-b from-brand-950 via-brand-900 to-stone-900 text-white overflow-hidden py-16 sm:py-24">
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#e9d5bc_1px,transparent_1px)] [background-size:16px_16px]"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-800/80 border border-brand-700/60 text-brand-200 text-xs font-semibold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Open Outlet: 07:00 - 22:00 WIB
+            </div>
+            <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-amber-50">
+              Nikmati Setiap Tegukan, <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 via-amber-200 to-brand-400">Resapi Setiap Karya.</span>
+            </h2>
+            <p class="text-stone-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+              Dibuat dari biji kopi arabika pilihan Nusantara yang disangrai dengan presisi tinggi. Pesan langsung untuk dine-in, takeaway, atau delivery tanpa antre.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <a href="#menu-section" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-500 hover:bg-brand-400 text-brand-950 font-bold text-sm shadow-lg shadow-brand-900/50 transition duration-200 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-mug-hot"></i> Pesan Sekarang
+              </a>
+              <a href="#quiz-section" class="w-full sm:w-auto px-6 py-4 rounded-xl bg-white/10 hover:bg-white/15 text-stone-200 border border-white/15 font-semibold text-sm transition flex items-center justify-center gap-2 backdrop-blur-sm">
+                <i class="fa-solid fa-compass text-amber-300"></i> Bingung Pilih? Coba Quiz
+              </a>
+            </div>
+            <div class="flex justify-center lg:justify-start pt-2">
+              <a href="login.html" data-admin-link class="inline-flex items-center gap-2 rounded-xl border border-brand-400/40 bg-brand-400/10 px-4 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-brand-100 transition hover:bg-brand-400/20">
+                <i class="fa-solid fa-lock"></i>
+                Login Admin
+              </a>
+            </div>
+          </div>
+
+          <!-- Hero Promo Card -->
+          <div id="promo-section" class="lg:col-span-5">
+            <div class="bg-gradient-to-br from-brand-900/90 to-brand-950/90 border border-brand-700/50 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-md relative overflow-hidden">
+              <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-brand-500/10 rounded-full blur-2xl"></div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 bg-amber-500/20 text-amber-300 text-xs font-bold rounded-lg border border-amber-500/30 uppercase tracking-wider">Promo Khusus Hari Ini</span>
+                <i class="fa-solid fa-ticket text-brand-400 text-xl"></i>
+              </div>
+              <h3 class="font-serif text-2xl font-bold text-amber-100 mb-2">Diskon 20% Pengguna Baru</h3>
+              <p class="text-xs text-stone-300 mb-6 leading-relaxed">Gunakan kode voucher di checkout untuk menikmati racikan espresso signature kami dengan harga lebih terjangkau.</p>
+              
+              <div class="flex items-center justify-between bg-black/40 border border-white/10 p-3.5 rounded-xl">
+                <div class="flex items-center gap-3">
+                  <i class="fa-solid fa-qrcode text-brand-400 text-2xl"></i>
+                  <div>
+                    <p class="text-[10px] uppercase text-stone-400 font-bold tracking-wider">Kode Promo</p>
+                    <p class="text-sm font-mono font-bold text-amber-200">KARSABARU20</p>
+                  </div>
+                </div>
+                <button data-action="copy-promo" data-code="KARSABARU20" class="px-4 py-2 bg-brand-700 hover:bg-brand-600 text-white text-xs font-semibold rounded-lg transition flex items-center gap-1.5">
+                  <i class="fa-regular fa-copy"></i> Salin
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT / WHY CHOOSE US SECTION -->
+    <section id="about-section" class="bg-white py-16 border-b border-stone-200/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+          <p class="text-brand-600 font-semibold text-xs uppercase tracking-widest mb-2">Kenapa Pilih Kopi Karsa</p>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900">Rasa yang dibuat untuk menghangatkan cerita harianmu</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="feature-card bg-stone-50 border border-stone-200 rounded-3xl p-6 shadow-sm">
+            <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-800 flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-seedling"></i>
+            </div>
+            <h3 class="font-bold text-stone-900 text-lg mb-2">Biji Kopi Pilihan</h3>
+            <p class="text-sm text-stone-600 leading-relaxed">Kita memilih biji kopi berkualitas dari petani lokal dengan proses roasting yang konsisten dan penuh kontrol rasa.</p>
+          </div>
+
+          <div class="feature-card bg-stone-50 border border-stone-200 rounded-3xl p-6 shadow-sm">
+            <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-mug-hot"></i>
+            </div>
+            <h3 class="font-bold text-stone-900 text-lg mb-2">Racikan Barista</h3>
+            <p class="text-sm text-stone-600 leading-relaxed">Setiap minuman dibuat dengan presisi agar rasa tetap seimbang, lembut, dan sesuai dengan selera pelanggan.</p>
+          </div>
+
+          <div class="feature-card bg-stone-50 border border-stone-200 rounded-3xl p-6 shadow-sm">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <h3 class="font-bold text-stone-900 text-lg mb-2">Layanan Cepat</h3>
+            <p class="text-sm text-stone-600 leading-relaxed">Proses order dan pembayaran dibuat singkat, sehingga kamu bisa menikmati kopi tanpa menghabiskan waktu menunggu lama.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA STRIP -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="cta-strip rounded-[30px] p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div>
+          <p class="text-xs uppercase tracking-[0.22em] text-brand-700 font-bold mb-2">Pesan sekarang</p>
+          <h3 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900">Nikmati kopi terbaik untuk hari yang lebih produktif</h3>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center gap-3">
+          <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-brand-800 text-white font-bold text-sm shadow-lg shadow-brand-900/20 hover:bg-brand-700 transition">
+            <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp
+          </a>
+          <a href="#menu-section" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-stone-300 bg-white text-stone-800 font-bold text-sm hover:bg-stone-50 transition">
+            <i class="fa-solid fa-mug-hot"></i> Lihat Menu
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATION & HOURS SECTION -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid lg:grid-cols-[1.3fr_0.7fr] gap-6 items-stretch">
+        <div class="bg-stone-900 text-white rounded-[30px] overflow-hidden shadow-xl">
+          <div class="p-6 sm:p-8 border-b border-white/10">
+            <p class="text-xs uppercase tracking-[0.22em] text-amber-300 font-bold mb-2">Lokasi kami</p>
+            <h3 class="font-serif text-3xl font-bold text-white">Temukan kedai kopi favoritmu</h3>
+          </div>
+          <div class="p-4 sm:p-6">
+            <div class="rounded-[24px] overflow-hidden border border-white/10">
+              <iframe
+                title="Lokasi Kopi Karsa"
+                src="https://www.google.com/maps?q=Bogor&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                class="w-full h-[260px] border-0"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border border-stone-200 rounded-[30px] p-6 sm:p-8 shadow-sm">
+          <p class="text-xs uppercase tracking-[0.22em] text-brand-700 font-bold mb-3">Jam buka</p>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+              <span class="text-stone-700 font-medium">Senin - Jumat</span>
+              <span class="font-bold text-stone-900">07:00 - 22:00</span>
+            </div>
+            <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+              <span class="text-stone-700 font-medium">Sabtu - Minggu</span>
+              <span class="font-bold text-stone-900">08:00 - 23:00</span>
+            </div>
+            <div class="flex items-start gap-3 pt-2">
+              <i class="fa-solid fa-location-dot text-brand-700 mt-1"></i>
+              <div>
+                <p class="font-bold text-stone-900">Jl. Raya Pajajaran No. 18</p>
+                <p class="text-sm text-stone-600">Bogor Tengah, Jawa Barat</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 pt-2">
+              <i class="fa-solid fa-phone text-brand-700 mt-1"></i>
+              <div>
+                <p class="font-bold text-stone-900">+62 812-3456-7890</p>
+                <p class="text-sm text-stone-600">Reservasi / takeaway</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section id="menu-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <p class="text-brand-600 font-semibold text-xs uppercase tracking-widest mb-1">Daftar Menu Kopi & Kudapan</p>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900">Eksplorasi Rasa Karsa</h2>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="w-full md:w-80 relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400"></i>
+          <input type="text" id="menu-search-input" placeholder="Cari nama kopi atau rasa..." aria-label="Cari nama kopi atau rasa" class="w-full pl-10 pr-4 py-2.5 bg-white border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200 transition shadow-sm">
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between mb-6">
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar">
+          <button data-action="set-category" data-category="all" id="cat-btn-all" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition bg-brand-800 text-white shadow-sm">
+            Semua Menu
+          </button>
+          <button data-action="set-category" data-category="favorites" id="cat-btn-favorites" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition bg-white border border-stone-200 text-stone-600 hover:bg-stone-50">
+            Favorit Saya
+          </button>
+          <button data-action="set-category" data-category="espresso" id="cat-btn-espresso" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition bg-white border border-stone-200 text-stone-600 hover:bg-stone-50">
+            Espresso Based
+          </button>
+          <button data-action="set-category" data-category="manual" id="cat-btn-manual" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition bg-white border border-stone-200 text-stone-600 hover:bg-stone-50">
+            Manual Brew
+          </button>
+          <button data-action="set-category" data-category="noncoffee" id="cat-btn-noncoffee" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition bg-white border border-stone-200 text-stone-600 hover:bg-stone-50">
+            Non-Coffee
+          </button>
+          <button data-action="set-category" data-category="pastry" id="cat-btn-pastry" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition bg-white border border-stone-200 text-stone-600 hover:bg-stone-50">
+            Pastry & Snack
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 w-full max-w-md">
+          <label for="menu-sort-select" class="sr-only">Urutkan menu</label>
+          <select id="menu-sort-select" class="w-full rounded-xl border border-stone-200 bg-white px-3 py-2.5 text-sm text-stone-700 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200">
+            <option value="popular">Urutkan: Populer</option>
+            <option value="price-asc">Harga: Rendah ke Tinggi</option>
+            <option value="price-desc">Harga: Tinggi ke Rendah</option>
+            <option value="name-asc">Nama: A-Z</option>
+          </select>
+          <button id="clear-menu-filters" type="button" class="rounded-xl border border-stone-200 bg-stone-50 px-3 py-2.5 text-xs font-semibold text-stone-700 hover:bg-stone-100">Reset</button>
+        </div>
+      </div>
+
+      <!-- Menu Grid -->
+      <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </section>
+
+    <!-- COFFEE FINDER QUIZ SECTION -->
+    <section id="quiz-section" class="bg-stone-900 text-white py-16 border-t border-b border-stone-800">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+          <span class="text-amber-400 font-bold text-xs uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">Fitur Interaktif</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-3 mb-2 text-stone-100">Cari Kopi Sesuai Mood Kamu</h2>
+          <p class="text-stone-400 text-sm max-w-lg mx-auto">Jawab 3 pertanyaan singkat ini untuk mendapatkan rekomendasi seduhan yang paling cocok dengan selera atau suasana hatimu saat ini.</p>
+        </div>
+
+        <div class="bg-stone-800/80 border border-stone-700/80 rounded-3xl p-6 sm:p-8 shadow-xl backdrop-blur-md">
+          <div id="quiz-container">
+            <!-- Step 1 -->
+            <div id="quiz-step-1" class="space-y-4">
+              <p class="text-xs font-semibold uppercase text-brand-400 tracking-wider">Langkah 1 dari 3</p>
+              <h3 class="text-xl font-bold text-stone-100">Bagaimana intensitas rasa kopi yang kamu inginkan?</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <button data-action="quiz-answer" data-step="1" data-answer="strong" class="p-4 bg-stone-700/60 hover:bg-brand-700/80 rounded-xl border border-stone-600 text-left transition group">
+                  <p class="font-bold text-stone-200 group-hover:text-white">Strong & Bold</p>
+                  <p class="text-xs text-stone-400 group-hover:text-stone-200 mt-1">Kopi hitam pekat, kaya kafein, tanpa susu.</p>
+                </button>
+                <button data-action="quiz-answer" data-step="1" data-answer="balanced" class="p-4 bg-stone-700/60 hover:bg-brand-700/80 rounded-xl border border-stone-600 text-left transition group">
+                  <p class="font-bold text-stone-200 group-hover:text-white">Creamy & Balance</p>
+                  <p class="text-xs text-stone-400 group-hover:text-stone-200 mt-1">Perpaduan espresso dan susu manis halus.</p>
+                </button>
+                <button data-action="quiz-answer" data-step="1" data-answer="light" class="p-4 bg-stone-700/60 hover:bg-brand-700/80 rounded-xl border border-stone-600 text-left transition group">
+                  <p class="font-bold text-stone-200 group-hover:text-white">Light / Fruit/ Mild</p>
+                  <p class="text-xs text-stone-400 group-hover:text-stone-200 mt-1">Aroma buah segar atau non-kopi santai.</p>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2 (Hidden Initially) -->
+            <div id="quiz-step-2" class="hidden space-y-4">
+              <p class="text-xs font-semibold uppercase text-brand-400 tracking-wider">Langkah 2 dari 3</p>
+              <h3 class="text-xl font-bold text-stone-100">Tingkat kemanisan yang pas buatmu?</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <button data-action="quiz-answer" data-step="2" data-answer="none" class="p-4 bg-stone-700/60 hover:bg-brand-700/80 rounded-xl border border-stone-600 text-left transition group">
+                  <p class="font-bold text-stone-200 group-hover:text-white">Tanpa Gula (0%)</p>
+                  <p class="text-xs text-stone-400 group-hover:text-stone-200 mt-1">Murni rasa alami dari biji kopi pilihan.</p>
+                </button>
+                <button data-action="quiz-answer" data-step="2" data-answer="medium" class="p-4 bg-stone-700/60 hover:bg-brand-700/80 rounded-xl border border-stone-600 text-left transition group">
+                  <p class="font-bold text-stone-200 group-hover:text-white">Sedang (50%)</p>
+                  <p class="text-xs text-stone-400 group-hover:text-stone-200 mt-1">Manis pas, tidak menutupi karakter kopi.</p>
+                </button>
+                <button data-action="quiz-answer" data-step="2" data-answer="sweet" class="p-4 bg-stone-700/60 hover:bg-brand-700/80 rounded-xl border border-stone-600 text-left transition group">
+                  <p class="font-bold text-stone-200 group-hover:text-white">Manis Manja (100%)</p>
+                  <p class="text-xs text-stone-400 group-hover:text-stone-200 mt-1">Sensasi manis gurih karamel / aren.</p>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 3 (Hidden Initially) -->
+            <div id="quiz-step-3" class="hidden space-y-4">
+              <p class="text-xs font-semibold uppercase text-brand-400 tracking-wider">Langkah 3 dari 3</p>
+              <h3 class="text-xl font-bold text-stone-100">Kondisi / Aktivitas kamu saat ini?</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <button data-action="quiz-answer" data-step="3" data-answer="work" class="p-4 bg-stone-700/60 hover:bg-brand-700/80 rounded-xl border border-stone-600 text-left transition group">
+                  <p class="font-bold text-stone-200 group-hover:text-white">Fokus Kerja / Begadang</p>
+                  <p class="text-xs text-stone-400 group-hover:text-stone-200 mt-1">Butuh dorongan energi maksimal.</p>
+                </button>
+                <button data-action="quiz-answer" data-step="3" data-answer="chill" class="p-4 bg-stone-700/60 hover:bg-brand-700/80 rounded-xl border border-stone-600 text-left transition group">
+                  <p class="font-bold text-stone-200 group-hover:text-white">Nongkrong Santai</p>
+                  <p class="text-xs text-stone-400 group-hover:text-stone-200 mt-1">Menikmati sore bareng teman.</p>
+                </button>
+                <button data-action="quiz-answer" data-step="3" data-answer="refresh" class="p-4 bg-stone-700/60 hover:bg-brand-700/80 rounded-xl border border-stone-600 text-left transition group">
+                  <p class="font-bold text-stone-200 group-hover:text-white">Butuh Kesegaran Dahaga</p>
+                  <p class="text-xs text-stone-400 group-hover:text-stone-200 mt-1">Cuaca panas, ingin yang dingin & segar.</p>
+                </button>
+              </div>
+            </div>
+
+            <!-- Result (Hidden Initially) -->
+            <div id="quiz-result" class="hidden text-center py-4 space-y-6">
+              <div class="w-16 h-16 bg-brand-500/20 text-amber-300 rounded-full flex items-center justify-center mx-auto text-2xl border border-brand-500/30">
+                <i class="fa-solid fa-mug-hot"></i>
+              </div>
+              <div>
+                <span class="text-xs uppercase text-stone-400 tracking-widest font-bold">Rekomendasi Terbaik Buat Kamu:</span>
+                <h3 id="quiz-rec-title" class="font-serif text-3xl font-bold text-amber-200 mt-1">Karsa Gula Aren</h3>
+                <p id="quiz-rec-desc" class="text-sm text-stone-300 max-w-md mx-auto mt-2">Seduhan espresso ganda paduan gula aren organik alami dan susu murni yang creamy.</p>
+              </div>
+              <div class="flex items-center justify-center gap-3 pt-2">
+                <button data-action="add-recommendation" class="px-6 py-3 bg-brand-500 hover:bg-brand-400 text-brand-950 font-bold rounded-xl text-sm transition flex items-center gap-2">
+                  <i class="fa-solid fa-plus"></i> Tambah Ke Keranjang
+                </button>
+                <button data-action="reset-quiz" class="px-5 py-3 bg-stone-700 hover:bg-stone-600 text-stone-300 rounded-xl text-sm transition">
+                  Coba Lagi
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL SECTION -->
+    <section id="testimoni-section" class="bg-stone-100 py-16 border-t border-b border-stone-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+          <p class="text-brand-600 font-semibold text-xs uppercase tracking-widest mb-2">Apa Kata Pelanggan</p>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900">Cerita nikmat dari setiap tegukan</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <article class="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm">
+            <div class="flex items-center gap-1 text-amber-400 mb-3">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-stone-600 leading-relaxed mb-4">“Kopi yang rasanya halus, tidak terlalu pahit, dan tempatnya nyaman untuk kerja santai. Suka banget dengan Karsa Gula Aren.”</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-brand-100 text-brand-800 flex items-center justify-center font-bold">A</div>
+              <div>
+                <p class="font-bold text-stone-900">Aisyah</p>
+                <p class="text-xs text-stone-500">Content Creator</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm">
+            <div class="flex items-center gap-1 text-amber-400 mb-3">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-stone-600 leading-relaxed mb-4">“Barista-nya ramah, porsinya pas, dan layanan checkout-nya cepat. Cocok banget buat nongkrong sambil meeting.”</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold">R</div>
+              <div>
+                <p class="font-bold text-stone-900">Raka</p>
+                <p class="text-xs text-stone-500">Freelancer</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm">
+            <div class="flex items-center gap-1 text-amber-400 mb-3">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-stone-600 leading-relaxed mb-4">“Atmosfernya tenang, kopi pilihan sangat terasa kualitasnya, dan saya suka fitur order tracker-nya yang memudahkan.”</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">N</div>
+              <div>
+                <p class="font-bold text-stone-900">Nadia</p>
+                <p class="text-xs text-stone-500">Mahasiswa</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <p class="text-brand-600 font-semibold text-xs uppercase tracking-widest mb-2">Pertanyaan Umum</p>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900">FAQ pelanggan</h2>
+      </div>
+
+      <div class="max-w-3xl mx-auto space-y-4">
+        <details class="group bg-white border border-stone-200 rounded-2xl p-5 shadow-sm" open>
+          <summary class="cursor-pointer list-none font-semibold text-stone-900 flex items-center justify-between gap-3">
+            Apakah bisa pesan untuk dibawa pulang?
+            <i class="fa-solid fa-chevron-down text-stone-500 transition group-open:rotate-180"></i>
+          </summary>
+          <p class="mt-3 text-sm text-stone-600 leading-relaxed">Bisa. Semua menu bisa dipilih dengan opsi takeaway dan dine-in sesuai kebutuhanmu.</p>
+        </details>
+
+        <details class="group bg-white border border-stone-200 rounded-2xl p-5 shadow-sm">
+          <summary class="cursor-pointer list-none font-semibold text-stone-900 flex items-center justify-between gap-3">
+            Apakah ada menu yang bebas kafein?
+            <i class="fa-solid fa-chevron-down text-stone-500 transition group-open:rotate-180"></i>
+          </summary>
+          <p class="mt-3 text-sm text-stone-600 leading-relaxed">Tentu. Kami menyediakan beberapa pilihan non-coffee seperti Matcha Latte dan pastry yang cocok untuk yang tidak ingin terlalu banyak kafein.</p>
+        </details>
+
+        <details class="group bg-white border border-stone-200 rounded-2xl p-5 shadow-sm">
+          <summary class="cursor-pointer list-none font-semibold text-stone-900 flex items-center justify-between gap-3">
+            Bagaimana cara mendapatkan promo?
+            <i class="fa-solid fa-chevron-down text-stone-500 transition group-open:rotate-180"></i>
+          </summary>
+          <p class="mt-3 text-sm text-stone-600 leading-relaxed">Klik tombol promo pada hero section, lalu salin kode voucher dan masukkan ke keranjang untuk mendapatkan diskon.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ORDER TRACKER SECTION -->
+    <section id="tracker-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-8">
+          <p class="text-brand-600 font-semibold text-xs uppercase tracking-widest">Real-time Order Tracker</p>
+          <h2 class="font-serif text-3xl font-bold text-stone-900 mt-1">Status Pesanan Anda</h2>
+        </div>
+
+        <div id="tracker-card" class="bg-white border border-stone-200 rounded-3xl p-6 sm:p-8 shadow-md">
+          <div id="no-active-order" class="text-center py-8">
+            <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center text-stone-400 mx-auto mb-3 text-2xl">
+              <i class="fa-solid fa-receipt"></i>
+            </div>
+            <p class="font-bold text-stone-700">Belum Ada Pesanan Aktif</p>
+            <p class="text-xs text-stone-500 mt-1">Pilih menu favorit Anda dan lakukan checkout untuk melihat progres pesanan di sini.</p>
+          </div>
+
+          <div id="active-order-content" class="hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-stone-100 gap-2">
+              <div>
+                <p class="text-xs text-stone-400 uppercase tracking-wider font-semibold">Nomor Pesanan</p>
+                <p id="order-id-display" class="font-mono text-lg font-bold text-stone-800">#KRS-88392</p>
+              </div>
+              <div class="text-left sm:text-right">
+                <p class="text-xs text-stone-400 uppercase tracking-wider font-semibold">Metode / Tipe</p>
+                <p id="order-type-display" class="text-sm font-bold text-brand-700">Takeaway (Dine-in)</p>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs font-bold text-stone-600">
+                <span id="step-label-1" class="text-brand-700">1. Diterima</span>
+                <span id="step-label-2" class="text-stone-400">2. Diseduh Barista</span>
+                <span id="step-label-3" class="text-stone-400">3. Siap Diambil</span>
+              </div>
+              <div class="w-full bg-stone-100 h-3 rounded-full overflow-hidden p-0.5 border border-stone-200">
+                <div id="tracker-progress-bar" class="bg-gradient-to-r from-brand-600 to-amber-500 h-full rounded-full transition-all duration-700 w-1/3"></div>
+              </div>
+            </div>
+
+            <div class="bg-amber-50/60 border border-amber-200/60 rounded-xl p-4 flex items-center gap-3">
+              <i class="fa-solid fa-bell-concierge text-amber-600 text-xl"></i>
+              <div>
+                <p id="tracker-status-desc" class="text-xs font-bold text-amber-900">Pesanan telah dikonfirmasi dan masuk ke antrean dapur.</p>
+                <p class="text-[11px] text-amber-700/80 mt-0.5">Estimasi waktu pengerjaan: ~10 - 15 Menit</p>
+              </div>
+            </div>
+
+            <!-- Order Items Summary -->
+            <div class="pt-2">
+              <p class="text-xs font-bold text-stone-700 uppercase tracking-wider mb-3">Rincian Item Pesanan</p>
+              <div id="tracker-items-list" class="space-y-2 text-xs text-stone-600">
+                <!-- Items list -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="sticky bottom-0 z-40 border-t border-stone-200 bg-white/90 p-3 backdrop-blur-md shadow-[0_-12px_30px_rgba(29,18,14,0.08)] md:hidden">
+    <div class="mx-auto flex max-w-md items-center justify-between gap-3">
+      <div>
+        <p class="text-[10px] uppercase tracking-[0.18em] text-stone-500">Total</p>
+        <p id="mobile-cart-summary" class="text-base font-extrabold text-brand-800">Rp 0</p>
+      </div>
+      <button data-action="toggle-cart" class="flex-1 rounded-xl bg-brand-800 px-4 py-3 text-sm font-bold text-white shadow-md hover:bg-brand-700">
+        Lihat Keranjang
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-stone-950 text-stone-400 py-12 border-t border-stone-800 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-brand-700 flex items-center justify-center text-amber-100 font-serif font-bold">K</div>
+            <span class="font-serif font-bold text-lg text-stone-100">Kopi Karsa</span>
+          </div>
+          <p class="text-stone-400 leading-relaxed">Menyajikan racikan kopi spesialitas dengan biji kopi pilihan petani lokal Indonesia. Menyatu dalam rasa dan karsa.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-stone-200 mb-3 uppercase tracking-wider text-[11px]">Jam Operasional</h4>
+          <p class="text-stone-400">Senin - Jumat: 07:00 - 22:00 WIB</p>
+          <p class="text-stone-400">Sabtu - Minggu: 08:00 - 23:00 WIB</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-stone-200 mb-3 uppercase tracking-wider text-[11px]">Lokasi Kedai</h4>
+          <p class="text-stone-400">Jl. Raya Pajajaran No. 18</p>
+          <p class="text-stone-400">Bogor Tengah, Jawa Barat 16128</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-stone-200 mb-3 uppercase tracking-wider text-[11px]">Hubungi Kami</h4>
+          <p class="text-stone-400"><i class="fa-brands fa-whatsapp mr-1 text-emerald-500"></i> +62 812-3456-7890</p>
+          <p class="text-stone-400"><i class="fa-regular fa-envelope mr-1 text-amber-400"></i> halo@kopikarsa.id</p>
+        </div>
+      </div>
+      <div class="border-t border-stone-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-stone-500">
+        <p>© 2026 Kopi Karsa Indonesia. All rights reserved.</p>
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-stone-300">Privacy Policy</a>
+          <a href="#" class="hover:text-stone-300">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL: ITEM CUSTOMIZATION -->
+  <div id="custom-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div role="dialog" aria-modal="true" aria-labelledby="modal-item-title" tabindex="-1" class="bg-white w-full max-w-md rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-stone-100 flex items-center justify-between bg-stone-50">
+        <div>
+          <h3 id="modal-item-title" class="font-serif font-bold text-lg text-stone-900">Karsa Gula Aren</h3>
+          <p id="modal-item-price-base" class="text-xs text-brand-700 font-bold">Rp 22.000</p>
+        </div>
+        <button data-action="close-custom" aria-label="Tutup kustomisasi menu" class="w-8 h-8 rounded-full bg-stone-200/60 hover:bg-stone-200 flex items-center justify-center text-stone-600 transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Customization Options) -->
+      <div class="p-5 overflow-y-auto space-y-5 text-xs text-stone-700 custom-scrollbar">
+        
+        <!-- Size Selection -->
+        <div>
+          <label class="block font-bold uppercase tracking-wider text-[11px] text-stone-500 mb-2">Pilih Ukuran (Size)</label>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="cursor-pointer border rounded-xl p-3 flex items-center justify-between border-brand-500 bg-brand-50/50 has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50">
+              <input type="radio" name="opt-size" value="Reguler" data-extra="0" checked class="accent-brand-600">
+              <span class="font-semibold">Reguler (12 oz)</span>
+              <span class="text-stone-400">+0</span>
+            </label>
+            <label class="cursor-pointer border border-stone-200 rounded-xl p-3 flex items-center justify-between hover:bg-stone-50">
+              <input type="radio" name="opt-size" value="Large" data-extra="5000" class="accent-brand-600">
+              <span class="font-semibold">Large (16 oz)</span>
+              <span class="text-brand-700 font-bold">+5k</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Ice Level -->
+        <div id="group-ice">
+          <label class="block font-bold uppercase tracking-wider text-[11px] text-stone-500 mb-2">Tingkat Es (Ice Level)</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="cursor-pointer border border-stone-200 rounded-xl p-2.5 text-center hover:bg-stone-50">
+              <input type="radio" name="opt-ice" value="Normal Ice" checked class="accent-brand-600">
+              <span class="block text-[11px] font-medium mt-1">Normal</span>
+            </label>
+            <label class="cursor-pointer border border-stone-200 rounded-xl p-2.5 text-center hover:bg-stone-50">
+              <input type="radio" name="opt-ice" value="Less Ice" class="accent-brand-600">
+              <span class="block text-[11px] font-medium mt-1">Less Ice</span>
+            </label>
+            <label class="cursor-pointer border border-stone-200 rounded-xl p-2.5 text-center hover:bg-stone-50">
+              <input type="radio" name="opt-ice" value="No Ice" class="accent-brand-600">
+              <span class="block text-[11px] font-medium mt-1">No Ice</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Sugar Level -->
+        <div id="group-sugar">
+          <label class="block font-bold uppercase tracking-wider text-[11px] text-stone-500 mb-2">Tingkat Kemanisan (Sugar)</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="cursor-pointer border border-stone-200 rounded-xl p-2.5 text-center hover:bg-stone-50">
+              <input type="radio" name="opt-sugar" value="100% Sweet" checked class="accent-brand-600">
+              <span class="block text-[11px] font-medium mt-1">Normal (100%)</span>
+            </label>
+            <label class="cursor-pointer border border-stone-200 rounded-xl p-2.5 text-center hover:bg-stone-50">
+              <input type="radio" name="opt-sugar" value="50% Less Sweet" class="accent-brand-600">
+              <span class="block text-[11px] font-medium mt-1">Less (50%)</span>
+            </label>
+            <label class="cursor-pointer border border-stone-200 rounded-xl p-2.5 text-center hover:bg-stone-50">
+              <input type="radio" name="opt-sugar" value="No Sugar" class="accent-brand-600">
+              <span class="block text-[11px] font-medium mt-1">Unsweetened</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Extra Toppings / Shots -->
+        <div>
+          <label class="block font-bold uppercase tracking-wider text-[11px] text-stone-500 mb-2">Tambahan (Add-ons)</label>
+          <div class="space-y-2">
+            <label class="cursor-pointer border border-stone-200 rounded-xl p-2.5 flex items-center justify-between hover:bg-stone-50">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" id="addon-shot" data-extra="4000" class="rounded text-brand-600 focus:ring-brand-500">
+                <span class="font-medium">Extra Espresso Shot</span>
+              </div>
+              <span class="text-brand-700 font-bold">+Rp 4.000</span>
+            </label>
+            <label class="cursor-pointer border border-stone-200 rounded-xl p-2.5 flex items-center justify-between hover:bg-stone-50">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" id="addon-oat" data-extra="6000" class="rounded text-brand-600 focus:ring-brand-500">
+                <span class="font-medium">Ganti Oat Milk (Plant-based)</span>
+              </div>
+              <span class="text-brand-700 font-bold">+Rp 6.000</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Quantity Selector -->
+        <div class="pt-2 flex items-center justify-between">
+          <span class="font-bold uppercase tracking-wider text-[11px] text-stone-500">Jumlah Pesanan</span>
+          <div class="flex items-center border border-stone-200 rounded-xl overflow-hidden bg-stone-50">
+            <button data-action="change-modal-qty" data-delta="-1" class="w-9 h-9 flex items-center justify-center text-stone-600 hover:bg-stone-200 font-bold text-base">-</button>
+            <span id="modal-qty" class="w-10 text-center font-bold text-sm">1</span>
+            <button data-action="change-modal-qty" data-delta="1" class="w-9 h-9 flex items-center justify-center text-stone-600 hover:bg-stone-200 font-bold text-base">+</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-5 border-t border-stone-100 bg-white flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[10px] text-stone-400 uppercase font-bold">Total Harga</p>
+          <p id="modal-total-price" class="text-lg font-bold text-brand-800">Rp 22.000</p>
+        </div>
+        <button data-action="confirm-add-to-cart" class="flex-1 py-3 px-4 bg-brand-800 hover:bg-brand-700 text-white font-bold rounded-xl text-sm transition shadow-md flex items-center justify-center gap-2">
+          <i class="fa-solid fa-cart-plus"></i> Tambahkan
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL: CART & CHECKOUT DRAWER -->
+  <div id="cart-drawer" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm">
+    <div role="dialog" aria-modal="true" aria-labelledby="cart-dialog-title" tabindex="-1" class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-300">
+      
+      <!-- Drawer Header -->
+      <div class="p-5 border-b border-stone-100 flex items-center justify-between bg-stone-50">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-basket-shopping text-brand-700 text-lg"></i>
+          <h3 id="cart-dialog-title" class="font-serif font-bold text-lg text-stone-900">Keranjang Belanja</h3>
+        </div>
+        <button data-action="toggle-cart" aria-label="Tutup keranjang" class="w-8 h-8 rounded-full bg-stone-200/60 hover:bg-stone-200 flex items-center justify-center text-stone-600 transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Drawer Items List -->
+      <div id="cart-items-container" class="p-5 overflow-y-auto flex-grow space-y-4 custom-scrollbar">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Drawer Checkout Footer -->
+      <div class="p-5 border-t border-stone-100 bg-stone-50/80 space-y-4">
+        
+        <!-- Dining Option -->
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-500 mb-1.5">Metode Pesanan</label>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <button data-action="set-order-type" data-order-type="Takeaway" id="btn-type-takeaway" class="py-2 px-3 rounded-lg border border-brand-600 bg-brand-50 text-brand-800 font-bold text-center">
+              Takeaway
+            </button>
+            <button data-action="set-order-type" data-order-type="Dine-in" id="btn-type-dinein" class="py-2 px-3 rounded-lg border border-stone-200 text-stone-600 font-medium text-center hover:bg-stone-100">
+              Dine-in (Meja)
+            </button>
+          </div>
+        </div>
+
+        <!-- Voucher Code Input -->
+        <div class="flex gap-2">
+          <input type="text" id="voucher-input" placeholder="Masukkan Kode Voucher" class="flex-1 px-3 py-2 bg-white border border-stone-200 rounded-lg text-xs font-mono uppercase focus:outline-none focus:border-brand-500">
+          <button data-action="apply-voucher" class="px-4 py-2 bg-stone-800 text-white text-xs font-bold rounded-lg hover:bg-stone-700 transition">Gunakan</button>
+        </div>
+
+        <!-- Pricing Summary -->
+        <div class="space-y-1.5 text-xs text-stone-600 border-t border-stone-200 pt-3">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span id="cart-subtotal" class="font-medium">Rp 0</span>
+          </div>
+          <div id="row-discount" class="flex justify-between text-emerald-600 hidden">
+            <span>Diskon Promo</span>
+            <span id="cart-discount">-Rp 0</span>
+          </div>
+          <div class="flex justify-between text-sm font-bold text-stone-900 border-t border-stone-200 pt-2">
+            <span>Total Pembayaran</span>
+            <span id="cart-grand-total" class="text-brand-800">Rp 0</span>
+          </div>
+        </div>
+
+        <button data-action="open-payment" id="btn-checkout" class="w-full py-3.5 bg-brand-800 hover:bg-brand-700 text-white font-bold rounded-xl text-sm transition shadow-md flex items-center justify-center gap-2">
+          Lanjut Pembayaran <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL: QRIS & PAYMENT SIMULATION -->
+  <div id="payment-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div role="dialog" aria-modal="true" aria-labelledby="payment-dialog-title" tabindex="-1" class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 animate-in fade-in zoom-in-95 duration-200">
+      
+      <div class="flex items-center justify-between pb-2 border-b border-stone-100">
+        <span id="payment-dialog-title" class="text-xs font-bold uppercase text-stone-400">Pembayaran QRIS</span>
+        <button data-action="close-payment" aria-label="Tutup pembayaran" class="text-stone-400 hover:text-stone-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div>
+        <p class="text-xs text-stone-500 mb-1">Scan QRIS menggunakan GoPay, OVO, DANA, BCA, dll.</p>
+        <p id="qris-total-amount" class="text-2xl font-extrabold text-brand-900">Rp 0</p>
+      </div>
+
+      <!-- QR Code Image Placeholder -->
+      <div class="bg-stone-50 border-2 border-dashed border-stone-200 p-4 rounded-2xl inline-block relative">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=KOPIKARSA-PAYMENT-SIMULATION" alt="QRIS Code" class="w-44 h-44 mx-auto rounded-lg shadow-sm">
+        <div class="absolute inset-0 bg-white/10 pointer-events-none"></div>
+      </div>
+
+      <div class="space-y-2">
+        <div class="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-center">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">Sudah membayar</p>
+        </div>
+        <div class="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-center">
+          <p class="text-xs font-semibold text-amber-800">Pembayaran berhasil, order Anda sedang diproses.</p>
+        </div>
+        <button data-action="simulate-payment-success" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition shadow-md flex items-center justify-center gap-2">
+          <i class="fa-solid fa-circle-check"></i> Simulasi Bayar Berhasil
+        </button>
+        <p class="text-[10px] text-stone-400">Tekan tombol di atas untuk mensimulasikan transaksi lunas.</p>
+      </div>
+
+    </div>
+  </div>
+
+
+</body>
+</html>
